@@ -45,7 +45,7 @@ public:
     virtual void show() = 0;
 
 protected:
-    char data[4][20];
+    char data[4][21];
 
 private:
     std::map<int, MFP> paintFunctions;
