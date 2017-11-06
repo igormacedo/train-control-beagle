@@ -5,7 +5,11 @@
 
 class LCDDisplay : public Display {
 public:
+    LCDDisplay();
     void show();
+
+private:
+    int lcd_fd;
 };
 
 #endif

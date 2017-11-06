@@ -14,8 +14,8 @@ Display::Display()
     paintFunctions[7] = &Display::paintT7;
 
     // Clear display
-    for (int i = 0; i < 20; ++i)
-        for (int j = 0; j < 4; ++j)
+    for (int i = 0; i < 4; ++i)
+        for (int j = 0; j < 20; ++j)
             data[i][j] = ' ';
 
     // Clear trails
@@ -24,11 +24,11 @@ Display::Display()
 
     // Clear corner trails
     data[0][0] = '-';
-    data[9][0] = '-';
-    data[0][3] = '-';
-    data[9][3] = '-';
-    data[19][0] = '-';
-    data[19][3] = '-';
+    data[0][9] = '-';
+    data[3][0] = '-';
+    data[3][9] = '-';
+    data[0][19] = '-';
+    data[3][19] = '-';
 }
 
 void Display::fill(int trail, char c)
@@ -55,43 +55,43 @@ void Display::clear(int trail)
 
 void Display::paintT1(char c)
 {
-    data[0][1] = c;
-    data[0][2] = c;
+    data[1][0] = c;
+    data[2][0] = c;
 }
 
 void Display::paintT2(char c)
 {
     for (int i = 1; i < 9; ++i)
-        data[i][0] = c;
+        data[0][i] = c;
 }
 
 void Display::paintT3(char c)
 {
-    data[9][1] = c;
-    data[9][2] = c;
+    data[1][9] = c;
+    data[2][9] = c;
 }
 
 void Display::paintT4(char c)
 {
     for (int i = 1; i < 9; ++i)
-        data[i][3] = c;
+        data[3][i] = c;
 }
 
 void Display::paintT5(char c)
 {
     for (int i = 10; i < 19; ++i)
-        data[i][0] = c;
+        data[0][i] = c;
 }
 
 void Display::paintT6(char c)
 {
-    data[19][1] = c;
-    data[19][2] = c;
+    data[1][19] = c;
+    data[2][19] = c;
 }
 
 void Display::paintT7(char c)
 {
     for (int i = 10; i < 19; ++i)
-        data[i][3] = c;
+        data[3][i] = c;
 }
 

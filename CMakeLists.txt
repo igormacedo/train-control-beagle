@@ -8,6 +8,8 @@ include_directories(include)
 add_library(display SHARED
     src/Display.cpp
     src/ConsoleDisplay.cpp
+    src/LCDDisplay.cpp
+    src/lcd.cpp
     src/DisplayFactory.cpp
  )
 

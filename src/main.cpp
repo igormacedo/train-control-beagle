@@ -1,6 +1,6 @@
+#include "lcd.h"
 #include <pthread.h>
 #include <unistd.h>
-#include "lcd.h"
 
 #include "DisplayFactory.h"
 
@@ -8,8 +8,8 @@ Display* display = 0;
 pthread_mutex_t trail3_mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t show_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-#define TRAIN1_SLEEP 1
-#define TRAIN2_SLEEP 2
+static int train1_sleep_time_ms = 1000;
+static int train2_sleep_time_ms = 2000;
 
 void* train1_thread(void*)
 {
@@ -23,7 +23,7 @@ void* train1_thread(void*)
         display->show();
         pthread_mutex_unlock(&show_mutex);
 
-        sleep(TRAIN1_SLEEP);
+        usleep(train1_sleep_time_ms * 1000);
 
         display->clear(1);
         display->fill(2, 'o');
@@ -31,7 +31,7 @@ void* train1_thread(void*)
         display->show();
         pthread_mutex_unlock(&show_mutex);
 
-        sleep(TRAIN1_SLEEP);
+        usleep(train1_sleep_time_ms * 1000);
 
         pthread_mutex_lock(&trail3_mutex);
         display->clear(2);
@@ -40,7 +40,7 @@ void* train1_thread(void*)
         display->show();
         pthread_mutex_unlock(&show_mutex);
 
-        sleep(TRAIN1_SLEEP);
+        usleep(train1_sleep_time_ms * 1000);
 
         display->clear(3);
         pthread_mutex_unlock(&trail3_mutex);
@@ -49,7 +49,7 @@ void* train1_thread(void*)
         display->show();
         pthread_mutex_unlock(&show_mutex);
 
-        sleep(TRAIN1_SLEEP);
+        usleep(train1_sleep_time_ms * 1000);
     }
 }
 
@@ -60,7 +60,7 @@ void* train2_thread(void*)
     display->show();
     pthread_mutex_unlock(&show_mutex);
 
-    sleep(TRAIN2_SLEEP);
+    usleep(train2_sleep_time_ms * 1000);
 
     while (1) {
         if (!display)
@@ -72,7 +72,7 @@ void* train2_thread(void*)
         display->show();
         pthread_mutex_unlock(&show_mutex);
 
-        sleep(TRAIN2_SLEEP);
+        usleep(train2_sleep_time_ms * 1000);
 
         display->clear(6);
         display->fill(7, 'x');
@@ -80,7 +80,7 @@ void* train2_thread(void*)
         display->show();
         pthread_mutex_unlock(&show_mutex);
 
-        sleep(TRAIN2_SLEEP);
+        usleep(train2_sleep_time_ms * 1000);
 
         pthread_mutex_lock(&trail3_mutex);
         display->clear(7);
@@ -89,7 +89,7 @@ void* train2_thread(void*)
         display->show();
         pthread_mutex_unlock(&show_mutex);
 
-        sleep(TRAIN2_SLEEP);
+        usleep(train2_sleep_time_ms * 1000);
 
         display->clear(3);
         pthread_mutex_unlock(&trail3_mutex);
@@ -98,24 +98,33 @@ void* train2_thread(void*)
         display->show();
         pthread_mutex_unlock(&show_mutex);
 
-        sleep(TRAIN2_SLEEP);
+        usleep(train2_sleep_time_ms * 1000);
+    }
+}
+
+void* speed_thread(void*)
+{
+    while (1) {
+        train1_sleep_time_ms = 1000;
+        train2_sleep_time_ms = 2000;
+        usleep(100);
     }
 }
 
 int main(int argc, char* argv[])
 {
-    display = DisplayFactory::getDisplay(Display::CONSOLE);
-    if (display == DisplayFactory::getDisplay(Display::LCD)){
-        display->lcd_fd = lcd_open("/dev/lcd0");
-    }
+    display = DisplayFactory::getDisplay(Display::LCD);
 
-    pthread_t t1, t2;
+    pthread_t train1, train2;
+    pthread_t speed;
 
-    pthread_create(&t1, NULL, train1_thread, NULL);
-    pthread_create(&t2, NULL, train2_thread, NULL);
+    pthread_create(&train1, NULL, train1_thread, NULL);
+    pthread_create(&train2, NULL, train2_thread, NULL);
+    pthread_create(&speed, NULL, speed_thread, NULL);
 
-    pthread_join(t1, NULL);
-    pthread_join(t2, NULL);
+    pthread_join(train1, NULL);
+    pthread_join(train2, NULL);
+    pthread_join(speed, NULL);
 
     return 0;
 }
