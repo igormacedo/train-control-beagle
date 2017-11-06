@@ -106,7 +106,7 @@ int main(int argc, char* argv[])
 {
     display = DisplayFactory::getDisplay(Display::CONSOLE);
     if (display == DisplayFactory::getDisplay(Display::LCD)){
-        display.lcd_fd = lcd_open("/dev/lcd0");
+        display->lcd_fd = lcd_open("/dev/lcd0");
     }
 
     pthread_t t1, t2;
