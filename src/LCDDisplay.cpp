@@ -15,6 +15,8 @@ void LCDDisplay::show()
 {
     lcd_clear_and_home(lcd_fd);
 
-    lcd_message(lcd_fd, "%s\n%s\n%s\n%s\n",
-        data[0], data[1], data[2], data[3]);
+
+    for (int i = 0; i < 4; ++i){
+        lcd_message(lcd_fd, "%s", data[i]);
+    }
 }
