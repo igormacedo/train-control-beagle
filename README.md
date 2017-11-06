@@ -12,10 +12,6 @@ $ cmake ..
 $ make
 $ ./train_control
 ```
-<<<<<<< HEAD
-in `in_voltage0_raw` change 0 to the number of the ADC, from 0 to 6.
-
-See references to make this permanent on reboot
 
 ### Description in Portuguese ###
 Questão: controle de 02 trens, para que não haja colisões entre eles.
@@ -42,5 +38,3 @@ Apresentar os resultados em vídeo.
 1. ADC on BeagleBone. <http://beaglebone.cameon.net/home/reading-the-analog-inputs-adc>
 2. How to read ADC values in kernel 4.x. <https://askubuntu.com/questions/882433/enable-adc-input-on-beaglebone-with-4-x-kernel>
 3. <https://www.teachmemicro.com/beaglebone-black-adc/>
-=======
->>>>>>> aa9f2ce391dadeea5bff09abd41b43065758c6ac
