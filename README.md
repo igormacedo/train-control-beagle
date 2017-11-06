@@ -49,9 +49,15 @@ If you want to display the result on a LCD display, first follow the steps in RE
 
 #### Usage ####
 1. In the train-control-beagle folder, run `insmod ../hd44780-i2c/hd44780.ko` to add the kernel module
-2. Let the I2C adapter know that there's a new device attached: `echo hd44780 0x27 > /sys/class/i2c-adapter/i2c-1/new_device`. You may need to replace the device's I2C address and adapter path with proper values. For example, consider changing the `i2c-1` to `i2c-2`, if you get `bash: /sys/class/i2c-adapter/i2c-1/new_device: No such file or directory`
+2. Let the I2C adapter know that there's a new device attached: `echo hd44780 0x27 > /sys/class/i2c-adapter/i2c-2/new_device`. You may need to replace the device's I2C address and adapter path with proper values. For example, consider changing the `i2c-1` to `i2c-2`, if you get `bash: /sys/class/i2c-adapter/i2c-1/new_device: No such file or directory`
 3. At this point a new device should appear (`/dev/lcd0`) and you should be able to write to it
 4. For more information, see the github repository of the hd44780 driver.
+
+Disable cursor blink and cursos display
+```
+echo "0" > /sys/class/hd44780/lcd-2/cursor_blink
+echo "0" > /sys/class/hd44780/lcd-2/cursor_display
+```
 
 
 ## Building
