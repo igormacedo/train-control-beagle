@@ -1,5 +1,7 @@
 #include <pthread.h>
+#include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <fcntl.h> // O_RDONLY
 
 #include "DisplayFactory.h"
@@ -127,7 +129,8 @@ void* speed_thread(void*)
         close(fd);
 
         printf("ADC4: %d\tADC6: %d\n", atoi(adc4), atoi(adc6));
-
+        fflush(stdout);
+	
         train1_sleep_time_ms = atoi(adc4);
         train2_sleep_time_ms = atoi(adc6);
         usleep(100);
