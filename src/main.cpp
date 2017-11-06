@@ -1,5 +1,6 @@
 #include <pthread.h>
 #include <unistd.h>
+#include <lcd.h>
 
 #include "DisplayFactory.h"
 
@@ -104,6 +105,9 @@ void* train2_thread(void*)
 int main(int argc, char* argv[])
 {
     display = DisplayFactory::getDisplay(Display::CONSOLE);
+    if (display == DisplayFactory::getDisplay(Display::LCD)){
+        display.lcd_fd = lcd_open("/dev/lcd0");
+    }
 
     pthread_t t1, t2;
 
