@@ -1,5 +1,6 @@
 #include <pthread.h>
 #include <unistd.h>
+#include <fcntl.h> // O_RDONLY
 
 #include "DisplayFactory.h"
 
