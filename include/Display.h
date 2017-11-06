@@ -23,7 +23,6 @@
 class Display {
 public:
     typedef void (Display::*MFP)(char);
-    int lcd_fd;
 
     Display();
 
