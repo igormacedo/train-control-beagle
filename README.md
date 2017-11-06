@@ -43,6 +43,17 @@ cat "/sys/bus/iio/devices/iio:device0/in_voltage0_raw"
 in `in_voltage0_raw` change 0 to the number of the ADC, from 0 to 6.
 
 See references to make this permanent on reboot
+## Enable LCD Display on Beagle ##
+
+If you want to display the result on a LCD display, first follow the steps in README of <https://github.com/gorskima/hd44780-i2c> to compile and add kernel module of LCD I2C display (see the usage below, copied and modified from gorskima).
+
+#### Usage ####
+1. In the train-control-beagle folder, run `insmod ../hd44780-i2c/hd44780.ko` to add the kernel module
+2. Let the I2C adapter know that there's a new device attached: `echo hd44780 0x27 > /sys/class/i2c-adapter/i2c-1/new_device`. You may need to replace the device's I2C address and adapter path with proper values. For example, consider changing the `i2c-1` to `i2c-2`, if you get `bash: /sys/class/i2c-adapter/i2c-1/new_device: No such file or directory`
+3. At this point a new device should appear (`/dev/lcd0`) and you should be able to write to it
+4. For more information, see the github repository of the hd44780 driver.
+
+
 ## Building
 Requirements:
 - CMake >= 3.5.1
