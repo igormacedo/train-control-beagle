@@ -13,6 +13,10 @@ Display::Display()
     paintFunctions[6] = &Display::paintT6;
     paintFunctions[7] = &Display::paintT7;
 
+    // Place \0 at the end of each line
+    for (int i = 0; i < 4; ++i)
+        data[i][20] = '\0';
+
     // Clear display
     for (int i = 0; i < 4; ++i)
         for (int j = 0; j < 20; ++j)
