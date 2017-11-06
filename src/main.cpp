@@ -1,6 +1,6 @@
 #include <pthread.h>
 #include <unistd.h>
-#include <lcd.h>
+#include "lcd.h"
 
 #include "DisplayFactory.h"
 
