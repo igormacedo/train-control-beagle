@@ -4,6 +4,15 @@
 
 Display::Display()
 {
+    // Initialize paint functions
+    paintFunctions[1] = &Display::paintT1;
+    paintFunctions[2] = &Display::paintT2;
+    paintFunctions[3] = &Display::paintT3;
+    paintFunctions[4] = &Display::paintT4;
+    paintFunctions[5] = &Display::paintT5;
+    paintFunctions[6] = &Display::paintT6;
+    paintFunctions[7] = &Display::paintT7;
+
     // Clear display
     for (int i = 0; i < 20; ++i)
         for (int j = 0; j < 4; ++j)
@@ -22,71 +31,67 @@ Display::Display()
     data[19][3] = '-';
 }
 
-void Display::paint(int trail)
+void Display::fill(int trail, char c)
 {
-    switch (trail) {
-    case 1:
-        data[0][1] = 'o';
-        data[0][2] = 'o';
-        break;
-    case 2:
-        for (int i = 1; i < 9; ++i)
-            data[i][0] = 'o';
-        break;
-    case 3:
-        data[9][1] = 'o';
-        data[9][2] = 'o';
-        break;
-    case 4:
-        for (int i = 1; i < 9; ++i)
-            data[i][3] = 'o';
-        break;
-    case 5:
-        for (int i = 10; i < 19; ++i)
-            data[i][0] = 'o';
-        break;
-    case 6:
-        data[19][1] = 'o';
-        data[19][2] = 'o';
-        break;
-    case 7:
-        for (int i = 10; i < 19; ++i)
-            data[i][0] = 'o';
-        break;
-    }
+    (this->*paintFunctions[trail])(c);
 }
 
 void Display::clear(int trail)
 {
     switch (trail) {
     case 1:
-        data[0][1] = '|';
-        data[0][2] = '|';
+    case 3:
+    case 6:
+        (this->*paintFunctions[trail])('|');
         break;
     case 2:
-        for (int i = 1; i < 9; ++i)
-            data[i][0] = '-';
-        break;
-    case 3:
-        data[9][1] = '|';
-        data[9][2] = '|';
-        break;
     case 4:
-        for (int i = 1; i < 9; ++i)
-            data[i][3] = '-';
-        break;
     case 5:
-        for (int i = 10; i < 19; ++i)
-            data[i][0] = '-';
-        break;
-    case 6:
-        data[19][1] = '|';
-        data[19][2] = '|';
-        break;
     case 7:
-        for (int i = 10; i < 19; ++i)
-            data[i][3] = '-';
+        (this->*paintFunctions[trail])('-');
         break;
     }
+}
+
+void Display::paintT1(char c)
+{
+    data[0][1] = c;
+    data[0][2] = c;
+}
+
+void Display::paintT2(char c)
+{
+    for (int i = 1; i < 9; ++i)
+        data[i][0] = c;
+}
+
+void Display::paintT3(char c)
+{
+    data[9][1] = c;
+    data[9][2] = c;
+}
+
+void Display::paintT4(char c)
+{
+    for (int i = 1; i < 9; ++i)
+        data[i][3] = c;
+}
+
+void Display::paintT5(char c)
+{
+    for (int i = 10; i < 19; ++i)
+        data[i][0] = c;
+}
+
+void Display::paintT6(char c)
+{
+    data[19][1] = c;
+    data[19][2] = c;
+}
+
+void Display::paintT7(char c)
+{
+    for (int i = 10; i < 19; ++i)
+        data[i][3] = c;
 }
 
