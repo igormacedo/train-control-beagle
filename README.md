@@ -2,6 +2,9 @@ Train Control with threads
 ========================
 This project was developed as part of a university (UFRN) course and demonstrates functionalities of a mutex while dealing with threads. It uses a A Bleaglebone Black (BBB) that receives analog input through its ADC to control the simulated speed which two trains run along a circular rail. There is only one intersection between both rails and the trains should not be on the same section at the same time.
 
+##### Youtube Video Explanation #####
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/CcgmjoVka54/0.jpg)](https://youtu.be/CcgmjoVka54)
+
 ![BeagleBone](http://beagleboard.org/static/images/cape-headers.png)
 
 ## Getting started ##
@@ -10,7 +13,7 @@ On a Linux system
 1. Connect your BeagleBone to your computer by using a Mini USB cable.
 2. Open the terminal and type `ifconfig`. You should see a network adapter that has one of the following ips `192.168.7.1` or `192.168.6.1`
 3. Then the BeagleBone itself will have the ip `192.168.6.2` or `192.168.7.2`
-4. Then connect via ssh with the command `ssh debian@192.168.7.2`, use sudo and/or change the ip if necessary. Make sure you're connecting with the correct username in ssh
+4. Then connect via ssh with the command `ssh debian@192.168.6.2`, use sudo and/or change the ip if necessary. Make sure you're connecting with the correct username in ssh
 
 #### Share internet connection over the USB ####
 Reference: <https://elementztechblog.wordpress.com/2014/12/22/sharing-internet-using-network-over-usb-in-beaglebone-black/>
@@ -55,8 +58,8 @@ If you want to display the result on a LCD display, first follow the steps in RE
 
 Disable cursor blink and cursos display
 ```
-echo "0" > /sys/class/hd44780/lcd-2/cursor_blink
-echo "0" > /sys/class/hd44780/lcd-2/cursor_display
+echo "0" > /sys/class/hd44780/lcd0/cursor_blink
+echo "0" > /sys/class/hd44780/lcd0/cursor_display
 ```
 
 
